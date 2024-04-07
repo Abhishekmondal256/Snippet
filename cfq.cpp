@@ -93,7 +93,73 @@ ll binaryToDecimal(string n){string num = n;ll dec_value = 0;int base = 1;int le
 bool isPrime(ll n){if(n<=1)return false;if(n<=3)return true;if(n%2==0||n%3==0)return false;for(int i=5;i*i<=n;i=i+6)if(n%i==0||n%(i+2)==0)return false;return true;}
 bool isPowerOfTwo(int n){if(n==0)return false;return (ceil(log2(n)) == floor(log2(n)));}
 bool isPerfectSquare(ll x){if (x >= 0) {ll sr = sqrt(x);return (sr * sr == x);}return false;}
-
+ 
+vector<ll> NGE_R(vector<ll> &arr, ll n)
+{
+    vector<ll> ans;
+ 
+    stack<pair<ll,ll>> st;
+ 
+    for(ll i = n-1; i>=0; i--)
+    {
+    	while(1)
+        {
+            if(st.empty())
+	    	{
+	    		ans.pb(n);
+	    		st.push({arr[i],i});
+	    		break;
+	    	}
+	    	else if(st.top().first > arr[i])
+	    	{
+	    		ans.pb(st.top().second);
+	    		st.push({arr[i],i});
+	    		break;
+	    	}
+	    	else
+	    	{
+	    		st.pop();
+	    	}
+        }
+    }
+ 
+    reverse(ans.begin(), ans.end());
+    return ans;
+ 
+ 
+}
+vector<ll> NGE_L(vector<ll> &arr, ll n)
+{
+	vector<ll> ans;
+ 
+    stack<pair<ll,ll>> st;
+ 
+    for(ll i = 0; i<n; i++)
+    {
+    	while(1)
+        {
+            if(st.empty())
+	    	{
+	    		ans.pb(-1);
+	    		st.push({arr[i],i});
+	    		break;
+	    	}
+	    	else if(st.top().first > arr[i])
+	    	{
+	    		ans.pb(st.top().second);
+	    		st.push({arr[i],i});
+	    		break;
+	    	}
+	    	else
+	    	{
+	    		st.pop();
+	    	}
+        }
+    }
+ 
+    return ans;
+ 
+}
 
 //Code
 void abhishek()
