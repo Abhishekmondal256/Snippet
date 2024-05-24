@@ -160,7 +160,21 @@ vector<ll> NGE_L(vector<ll> &arr, ll n)
     return ans;
  
 }
-
+vector<vector<char>> rotate90(vector<vector<char>> &arr)
+{
+	ll n = arr.size();
+	vector<vector<char>> ans(n, vector<char> (n));
+ 
+	for(int i=0; i<n; i++)
+	{
+		for(int j=0; j<n; j++)
+		{
+			ans[j][n-1-i] = arr[i][j];
+		}
+	}
+ 
+	return ans;
+}
 //Code
 void abhishek()
 {
