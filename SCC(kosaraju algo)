@@ -1,0 +1,63 @@
+	void dfs(int u,vector<vector<int>>& adj,vector<bool> &vis,stack<int> &st){
+	    vis[u]=true;
+	    for(int &v:adj[u]){
+	        if(!vis[v]){
+	            dfs(v,adj,vis,st);
+	            
+	        }
+	        
+	        
+	    }
+	    st.push(u);
+	    
+	    
+	    
+	}
+	void dfs2(int u,vector<vector<int>>& adjreverse,vector<bool> &vis){
+	    vis[u]=true;
+	    for(int &v:adjreverse[u]){
+	        if(!vis[v]){
+	            dfs2(v,adjreverse,vis);
+	            
+	            
+	        }
+	        
+	    }
+	   
+	}
+	
+    int kosaraju(int V, vector<vector<int>>& adj)
+    {
+       stack<int> st;
+       vector<bool> vis(V,false);
+       for(int i=0;i<V;i++){
+           if(!vis[i]){
+               dfs(i,adj,vis,st);
+           }
+           
+       }
+       //make reverse graph
+       vector<vector<int>> adjreverse(V);
+       for(int u=0;u<V;u++){
+           for(int &v:adj[u]){
+               adjreverse[v].push_back(u);
+                }
+          vis[u]=false;
+       }
+       
+       //call dfs on stack order
+       int cntscc=0;
+       while(!st.empty()){
+           int node=st.top();
+           st.pop();
+           if(!vis[node]){
+               dfs2(node,adjreverse,vis);
+               cntscc++;
+               
+           }
+           
+           
+       }
+       
+       return cntscc;
+    }
