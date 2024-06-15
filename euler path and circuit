@@ -1,0 +1,58 @@
+ void dfs(vector<int>adj[],int u, vector<bool> &vis){
+          vis[u]=true;
+          for(auto it=adj[u].begin();it!=adj[u].end();it++){
+              int neighbour=*it;
+              if(vis[neighbour]==false){
+                  dfs(adj,neighbour,vis);
+              }
+              
+              
+          }
+          
+          
+          
+          
+      }
+
+     bool isconnected(int V,vector<int>adj[]){
+         int nonzerodegreevertex=-1;
+         for(int i=0;i<V;i++){
+             if(adj[i].size()!=0){
+                 nonzerodegreevertex=i;
+                 break;
+                 
+             }
+             
+             
+         }
+         vector<bool> vis(V,false);
+         
+         dfs(adj,nonzerodegreevertex,vis);
+         for(int i=0;i<V;i++){
+             if(vis[i]==false && adj[i].size()>0){
+                 return false;
+             }
+             
+             
+         }
+         return true;
+         
+         
+         
+         
+     }
+
+	int isEulerCircuit(int V, vector<int>adj[]){
+	    if(isconnected(V,adj)==false)return 0;
+	    int odddegree=0;
+	    for(int i=0;i<V;i++){
+	        if(adj[i].size()%2!=0){
+	          odddegree++;  
+	        }
+	        
+	        
+	        
+	    }
+	    if(odddegree>2)return 0;
+	    if(odddegree==2)return 1;
+	     return 2;
